@@ -1,6 +1,9 @@
+//Importação do módulo express
 const express = require('express');
 const app = express();
 const port = 3000;
+
+//Configuração do motor de vizualizacao'ejs'e uso de arquivos estáticos na pasta'public'
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -12,6 +15,7 @@ app.get('/', (req, res) => {
 app.get('/contatos', (req, res) => {
   res.render('contatos', { message: 'Página de contatos!' });
 });
+//lista de todos os produtos 
 
 const produtos = [
   {id: 1, nome: "Flor Pluméria", preco: "60,00", imagem: "imagem1.png" , descricao: "Plumerias têm hastes grossas, folhas de couro, e uma abundância de flores do início do verão até o outono. Nos trópicos algumas variedades podem crescer até uma altura de mais de 30 pés. Variedades mais curtas podem ser plantadas e podadas em uma grande cobertura. As flores de plumeria são muito perfumadas, por isso elas são plantadasplantam árvores perto de janelas ou pátios para desfrutar da fragrância sedutora. As cores das flores incluem rosa, vermelho, branco e amarelo. Plumerias são frequentemente plantadas em recipientes e fazem excelentes flores cortadas."},
@@ -21,8 +25,16 @@ const produtos = [
   {id: 5, nome: "", preco: 69.90, imagem: "imagem5.png", descricao: ""},
   
 ]
+//Função para buscar um produto pelo ID
+function buscarPRodutoPOrId(id){
+return produto // null
 
-app.get('/produto', (req, res) => {
+app.get('/', async function (req,res){
+res.render('index',{produtos})
+});
+
+app.get('/produto/:id',async function (req, res) => {
+//const produto = buscarProdutoPorId(req.params.id)
   res.render('produto', { message: 'Página do produto!' });
 });
 
